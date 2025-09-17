@@ -1,5 +1,7 @@
 # aerospace-sketchybar-config
-My own configuration for sketchybar and aerospace. The original design is based off off [omerxxx's](https://github.com/omerxx/dotfiles) dotfiles, however I've added a mode indicator as well which can be configured to whatever you'd like
+My own configuration for sketchybar and aerospace. The original design is based off off [omerxxx's](https://github.com/omerxx/dotfiles) dotfiles, however I've added a mode indicator as well which can be configured to whatever you'd like.
+
+Along with the indicator, the config also displays the currently active workspace, and any non-empty workspaces you have. Empty workspaces are hidden until you travel to them, but will remain hidden when you leave unless you add a window to them. The bar will also update when you move nodes to other workspaces.
 
 
 # Aerospace
