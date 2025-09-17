@@ -18,27 +18,30 @@ case "$MODE" in
     "M")
         ICON="$AEROSPACE_MAIN"
         COLOR="$GREEN"
-        BG_COLOR="0x33625e5a"  
+        BG_COLOR="$GREY"
         ;;
     "P")
         ICON="$AEROSPACE_PANE"
         COLOR="$BLUE"
-        BG_COLOR="0x33625e5a"  
+        BG_COLOR="$GREY"
+  
         ;;
     "L")
         ICON="$AEROSPACE_LAYOUT"
         COLOR="$MAGENTA"
-        BG_COLOR="0x33625e5a"  
+        BG_COLOR="$GREY"
+  
         ;;
     "R")
         ICON="$AEROSPACE_RESIZE"
         COLOR="$YELLOW"
-        BG_COLOR="0x33625e5a"  
+        BG_COLOR="$GREY"
+  
         ;;
     *)
         ICON="?"
         COLOR="$WHITE"
-        BG_COLOR="0x00000000"  
+        BG_COLOR="$GREY" 
         ;;
 esac
 

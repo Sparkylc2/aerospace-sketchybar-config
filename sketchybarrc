@@ -1,7 +1,6 @@
 #!/usr/bin/env sh
 
 source "$HOME/.config/sketchybar/colors.sh" 
-
 ITEM_DIR="$HOME/.config/sketchybar/items" 
 PLUGIN_DIR="$HOME/.config/sketchybar/plugins" 
 
@@ -22,7 +21,7 @@ sketchybar --bar     height=50                                         \
                                                                        \
            --default updates=when_shown                                \
                      icon.font="$FONT:Regular:13.0"                    \
-                     icon.color=$ICON_COLOR                            \
+                     icon.color=$WHITE
                      icon.padding_left=$PADDINGS                       \
                      icon.padding_right=$PADDINGS                      \
                      label.font="$FONT::13.0"                          \
@@ -34,11 +33,11 @@ sketchybar --bar     height=50                                         \
 
 
 
-# the workspace indicators
-source "$ITEM_DIR/aerospace_spaces.sh"
-# the mode indicator (eg. main, layout, etc...)
+source "$ITEM_DIR/aerospace_workspace_manager.sh"
 source "$ITEM_DIR/aerospace_mode.sh"
+source "$ITEM_DIR/seperator.sh"
 
 
 sketchybar --update
+
 

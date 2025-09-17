@@ -2,7 +2,7 @@
 
 if [ "$1" = "$FOCUSED_WORKSPACE" ]; then
     sketchybar --set $NAME background.height=40 
-    sketchybar --set $NAME background.color=0xFF3A3938
+    sketchybar --set $NAME background.color=$GREY
 
 else
     sketchybar --set $NAME background.height=20 
