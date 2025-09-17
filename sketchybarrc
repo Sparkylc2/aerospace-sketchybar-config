@@ -1,0 +1,44 @@
+#!/usr/bin/env sh
+
+source "$HOME/.config/sketchybar/colors.sh" 
+
+ITEM_DIR="$HOME/.config/sketchybar/items" 
+PLUGIN_DIR="$HOME/.config/sketchybar/plugins" 
+
+FONT="SF Pro Text" 
+PADDINGS=3 
+
+
+
+sketchybar --bar     height=50                                         \
+                     color=$BAR_COLOR                                  \
+                     position=right                                    \
+                     sticky=on                                         \
+                     padding_right=18                                  \
+                     padding_left=18                                   \
+                     corner_radius=9                                   \
+                     y_offset=10                                       \
+                     margin=10                                         \
+                                                                       \
+           --default updates=when_shown                                \
+                     icon.font="$FONT:Regular:13.0"                    \
+                     icon.color=$ICON_COLOR                            \
+                     icon.padding_left=$PADDINGS                       \
+                     icon.padding_right=$PADDINGS                      \
+                     label.font="$FONT::13.0"                          \
+                     label.color=$LABEL_COLOR                          \
+                     label.padding_left=$PADDINGS                      \
+                     label.padding_right=$PADDINGS                     \
+                     background.padding_right=$PADDINGS                \
+                     background.padding_left=$PADDINGS                 \
+
+
+
+# the workspace indicators
+source "$ITEM_DIR/aerospace_spaces.sh"
+# the mode indicator (eg. main, layout, etc...)
+source "$ITEM_DIR/aerospace_mode.sh"
+
+
+sketchybar --update
+
