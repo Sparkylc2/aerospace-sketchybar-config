@@ -10,10 +10,12 @@ ALL_WORKSPACES=$(echo -e "$WORKSPACES_WITH_WINDOWS\n$FOCUSED" | sort -n | uniq |
 for sid in $ALL_WORKSPACES; do
     if [ "$sid" = "$FOCUSED" ]; then
         BG_HEIGHT=40
-        BG_COLOR=$GREY
+        BG_COLOR=$BLACK
+        FONT="SF Pro Text:Regular:19.0" 
     else
         BG_HEIGHT=20
         BG_COLOR=$BLACK
+        FONT="SF Pro Text:Regular:13.0" 
     fi
     
     sketchybar --add item "space.$sid" left \
@@ -22,17 +24,18 @@ for sid in $ALL_WORKSPACES; do
             icon="$sid" \
             icon.padding_left=22 \
             icon.padding_right=22 \
+            icon.font="$FONT"    \
             label.padding_right=33 \
             background.color=$BG_COLOR \
-            background.corner_radius=10 \
+            background.corner_radius=17 \
             background.height=$BG_HEIGHT \
             background.drawing=on \
             height=60 \
-            label.font="sketchybar-app-font:Regular:16.0" \
+            label.font=$FONT \
             label.background.height=30 \
             label.background.drawing=on \
-            label.background.color=$GREY \
-            label.background.corner_radius=9 \
+            label.background.color=$BG_COLOR\
+            label.background.corner_radius=20 \
             label.drawing=off \
             click_script="aerospace workspace $sid" \
             script="$CONFIG_DIR/plugins/aerospace.sh $sid"

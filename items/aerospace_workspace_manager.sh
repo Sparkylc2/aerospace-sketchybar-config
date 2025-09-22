@@ -4,7 +4,7 @@ sketchybar --add item workspace_manager left \
     --set workspace_manager \
     --subscribe workspace_manager aerospace_workspace_change \
         drawing=off \
-        script="$CONFIG_DIR/plugins/rebuild_bar.sh" \
+        script="$CONFIG_DIR/plugins/aerospace_workspace_rebuilder.sh" \
         updates=on
 sketchybar --subscribe workspace_manager aerospace_workspace_change
 

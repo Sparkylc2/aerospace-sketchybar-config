@@ -7,7 +7,7 @@ sketchybar --add item aerospace_mode left\
                                icon.padding_right=$PADDINGS \
                                label.padding_left=$PADDINGS \
                                label.padding_right=10\
-                               background.corner_radius=15 \
+                               background.corner_radius=20\
                                background.height=24 \
            --subscribe aerospace_mode aerospace_mode
 

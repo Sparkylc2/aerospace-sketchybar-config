@@ -18,24 +18,24 @@ case "$MODE" in
     "M")
         ICON="$AEROSPACE_MAIN"
         COLOR="$GREEN"
-        BG_COLOR="$GREY"
+        BG_COLOR="$BAR_COLOR"
         ;;
-    "P")
+    "W")
         ICON="$AEROSPACE_PANE"
         COLOR="$BLUE"
-        BG_COLOR="$GREY"
+        BG_COLOR="$BAR_COLOR"
   
         ;;
-    "L")
+    "P")
         ICON="$AEROSPACE_LAYOUT"
         COLOR="$MAGENTA"
-        BG_COLOR="$GREY"
+        BG_COLOR="$BAR_COLOR"
   
         ;;
     "R")
         ICON="$AEROSPACE_RESIZE"
         COLOR="$YELLOW"
-        BG_COLOR="$GREY"
+        BG_COLOR="$BAR_COLOR"
   
         ;;
     *)
