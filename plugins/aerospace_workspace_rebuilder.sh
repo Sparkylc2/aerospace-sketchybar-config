@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
+trap 'echo "ERR at line $LINENO (last cmd: $BASH_COMMAND)" >&2' ERR
+set -x
 source "$HOME/.config/sketchybar/colors.sh"
 source "$HOME/.config/sketchybar/icon_map.sh"
 
@@ -20,8 +22,9 @@ CMD+=( --remove "/^space-spacer${NEW_BUF}\..*/" )
 
 FOCUSED="$(aerospace list-workspaces --focused 2>/dev/null | head -n1)"
 WORKSPACES_WITH_WINDOWS="$(aerospace list-windows --all --format '%{workspace}')"
-ALL_WORKSPACES=$(echo -e "$WORKSPACES_WITH_WINDOWS\n$FOCUSED" | sort -n | uniq | grep -v '^$' || true)
+ALL_WORKSPACES=$(printf '%s\n%s\n' "$WORKSPACES_WITH_WINDOWS" "$FOCUSED" | sort -n | uniq | grep -v '^$' || true)
 MONITORS="$(aerospace list-monitors --format '%{monitor-id}' || true)"
+if [ -z "$MONITORS" ]; then MONITORS="1"; fi
 MONITOR_COUNT="$(echo "$MONITORS" | wc -w | tr -d ' ')"
 
 get_display_number() {
@@ -53,7 +56,7 @@ for monitor in $MONITORS; do
     fi
   done
 
-  for sid in "${CURR_WORKSPACES[@]}"; do
+  for sid in "${CURR_WORKSPACES[@]:-}"; do
     if [ "$sid" = "$FOCUSED" ]; then
       BG_HEIGHT=40;
       BG_COLOR=$BLACK;
@@ -104,8 +107,7 @@ for monitor in $MONITORS; do
       while IFS= read -r app; do
         [ -z "$app" ] && continue
         APP_COUNT=$((APP_COUNT + 1))
-        __icon_map "$app"; APP_ICON="${icon_result}"
-
+        __icon_map "$app"; APP_ICON="${icon_result:-󰘔}" 
         app_name="space-app${NEW_BUF}.$sid.$APP_COUNT"
         CMD+=( --add item "$app_name" left
                --set "$app_name" \
@@ -118,7 +120,7 @@ for monitor in $MONITORS; do
                  background.height=$ICON_BG_HEIGHT\
                  background.color=$BG_COLOR \
                  background.drawing=on\
-                 y_offset=$((80 * ITEM_ORDER)) \
+                 y_offset=$((10* ITEM_ORDER)) \
                  click_script="aerospace workspace $sid"
         )
         ITEM_ORDER=$((ITEM_ORDER + 1))
@@ -136,7 +138,7 @@ for monitor in $MONITORS; do
              background.color=$BG_COLOR \
              background.height=5 \
              background.drawing=on \
-             y_offset=$((80 * ITEM_ORDER))
+             y_offset=$((10* ITEM_ORDER))
     )
 
     ITEM_ORDER=$((ITEM_ORDER + 1))
@@ -154,10 +156,12 @@ CMD+=( --set "/^space${NEW_BUF}\..*/" drawing=on )
 CMD+=( --set "/^space-app${NEW_BUF}\..*/" drawing=on )
 CMD+=( --set "/^space-spacer${NEW_BUF}\..*/" drawing=on )
 
+
+echo "args: ${#CMD[@]}" >&2
+printf '%q ' "${CMD[@]}" >&2; echo >&2
 # Apply the swap
 "${CMD[@]}"
 
 # Persist new visible buffer
-echo "$NEW_BUF" > "$BUF_FILE"
 
 
