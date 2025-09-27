@@ -1,7 +1,11 @@
 # aerospace-sketchybar-config
 My own configuration for sketchybar and aerospace. The original design is based off off [omerxxx's](https://github.com/omerxx/dotfiles) dotfiles, however I've added a mode indicator as well which can be configured to whatever you'd like.
 
-Along with the indicator, the config also displays the currently active workspace, and any non-empty workspaces you have. Empty workspaces are hidden until you travel to them, but will remain hidden when you leave unless you add a window to them. The bar will also update when you move nodes to other workspaces.
+Along with the indicator, the config also displays the currently active workspace, and any non-empty workspaces you have. Empty workspaces are hidden until you focus them, but will remain hidden when you leave unless you add a window to them. The bar will also update when you move nodes to other workspaces, and if you add the yabai configuration (which you must), will update whenever windows open or close.
+
+For multi-monitor users, this config will display whatever workspaces are available to a given monitor (with monitor ID mappings defined in the `aerospace_workspace_rebuilder.sh` file, as aerospace and sketchybar have seperate mappings).
+
+Unfortunately, configuring this any more than changing the colors file requires you to get your hands dirty and just edit the logic itself.
 
 
 # Aerospace
@@ -27,4 +31,24 @@ And finally, just to have regular workspace switching function, add this to the 
 exec-on-workspace-change = ['/bin/bash', '-c',
     'sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE'
 ]
-`
+```
+
+# Yabai
+To trigger updates when a window is opened or closed, you can install yabai and configure it with the following (so it doesn't clash with Aerospace)
+(And I know, the name of the repo lies but this was a last minute addition).
+
+```
+#!/usr/bin/env sh
+
+yabai -m config layout float
+
+yabai -m config mouse_follows_focus off
+yabai -m config focus_follows_mouse off
+yabai -m config auto_balance off
+
+yabai -m rule --add app=".*" manage=off
+
+
+yabai -m signal --add event=window_created   action='sketchybar --trigger aerospace_workspace_change'
+yabai -m signal --add event=window_destroyed action='sketchybar --trigger aerospace_workspace_change'
+```
